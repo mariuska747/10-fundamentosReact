@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import styles from "./AdvertsPage.module.css"
 
 
@@ -28,7 +29,7 @@ const adverts = [
 function AdvertsPage() {
   return (
     <div>
-      <h1>Adverts</h1>
+      <h1 className="text-blue-500 text-center my-10">Adverts</h1>
         <ul>
             {adverts.map((advert) => (
             <li key={advert.id} className={styles.advert}>
@@ -40,6 +41,7 @@ function AdvertsPage() {
             </li>
             ))}
         </ul>
+        <Button $variant="primary">Login</Button>
     </div>
   );
 }
