@@ -39,3 +39,6 @@ Prettier configuration file:
 
 Styled components (para un boton por ejemplo)
 > npm install styled-components
+
+Libreria para hacer fetchs: Axios
+> npm install axios>

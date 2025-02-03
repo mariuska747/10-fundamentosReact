@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import styles from "./AdvertsPage.module.css"
+import { getLatestAdverts } from "./service";
+import { Advert } from "./types";
 
-
+/*
 const adverts = [
   {
     id: "94d0ca7f-3a2c-4df8-8502-7c7273a58e67",
@@ -24,8 +27,11 @@ const adverts = [
     ],
     photo: null
   },
-];
+];*/
 
+
+
+/*
 function AdvertsPage() {
   return (
     <div>
@@ -45,5 +51,32 @@ function AdvertsPage() {
     </div>
   );
 }
+*/
 
+function AdvertsPage() {
+    const [adverts, setAdverts] = useState<string[]>([]);
+
+    useEffect(() => {
+        console.log("AdvertsPage useEffect");
+        getLatestAdverts().then((response) => { 
+            console.log(response.data); 
+            setAdverts(response.data);    
+        });
+    },[]);
+
+    
+    return (
+        <div>
+            <h1>Lista de Anuncios</h1>
+            {adverts.length > 0 ? (
+                adverts.map((tag, index) => (
+                    <p key={index}>Tag: {tag}</p>
+                ))
+            ) : (
+                <p>⚠ No hay datos disponibles ⚠</p>
+            )}
+        </div>
+    )
+}
 export default AdvertsPage;
+
