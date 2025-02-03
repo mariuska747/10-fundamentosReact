@@ -31,8 +31,19 @@ const adverts = [
 
 
 
-/*
+
 function AdvertsPage() {
+
+    const [adverts, setAdverts] = useState<Advert[]>([]);
+
+    useEffect(() => {
+        console.log("AdvertsPage useEffect");
+        getLatestAdverts().then((response) => { 
+            console.log(response); 
+            setAdverts(response);    
+        });
+    },[]);
+
   return (
     <div>
       <h1 className="text-blue-500 text-center my-10">Adverts</h1>
@@ -51,23 +62,23 @@ function AdvertsPage() {
     </div>
   );
 }
-*/
 
+/*
 function AdvertsPage() {
     const [adverts, setAdverts] = useState<string[]>([]);
 
     useEffect(() => {
         console.log("AdvertsPage useEffect");
         getLatestAdverts().then((response) => { 
-            console.log(response.data); 
-            setAdverts(response.data);    
+            console.log(response); 
+            setAdverts(response);    
         });
     },[]);
 
     
     return (
         <div>
-            <h1>Lista de Anuncios</h1>
+            <h1>Listado de tags</h1>
             {adverts.length > 0 ? (
                 adverts.map((tag, index) => (
                     <p key={index}>Tag: {tag}</p>
@@ -78,5 +89,6 @@ function AdvertsPage() {
         </div>
     )
 }
+    */
 export default AdvertsPage;
 

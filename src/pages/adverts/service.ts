@@ -1,7 +1,7 @@
 import { client } from "../../api/client";
 import { Advert } from "./types";
 
-const advertsUrl = "/api/v1/adverts/tags";
+const advertsUrl = "/api/v1/adverts";
 
 
 // export const getLatestAdverts = async () => {
@@ -9,5 +9,6 @@ const advertsUrl = "/api/v1/adverts/tags";
 // }
 
 export const getLatestAdverts = async () => {
-    return await client.get<string[]>(advertsUrl);
+    const response =  await client.get<Advert[]>(advertsUrl);
+    return response.data;
 };
