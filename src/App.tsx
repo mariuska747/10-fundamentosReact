@@ -1,26 +1,19 @@
-// import AdvertsPage from "./pages/adverts/advertsPage";
-import { useState } from "react";
 import AdvertsPage from "./pages/adverts/AdvertsPage";
 import LoginPage from "./pages/auth/LoginPage";
+import { useAuth } from "./pages/auth/context";
 
-interface Props {
-  defaultIsLogged: boolean;
-}
 
-function App({ defaultIsLogged }: Props) {
-  const [isLogged, setisLogged] = useState(defaultIsLogged);
 
-  const handleLogin = () => {
-    setisLogged(true);
-  };
-  const handleLogout = () => {
-    setisLogged(false);
-  };
 
-  return isLogged ? (
-    <AdvertsPage onLogout={handleLogout} isLogged={isLogged} />
+function App() {
+
+  const {isLogged,onLogin,onLogout} = useAuth();
+
+
+  return authValue?.isLogged ? (
+    <AdvertsPage onLogout={onLogout} isLogged={isLogged} />
   ) : (
-    <LoginPage onLogin={handleLogin} />
+    <LoginPage onLogin={onLogin} />
   );
 }
 
