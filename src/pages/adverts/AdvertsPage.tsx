@@ -4,6 +4,8 @@ import styles from "./AdvertsPage.module.css";
 import { getLatestAdverts } from "./service";
 import { Advert } from "./types";
 import { logout } from "../auth/service";
+import { HeaderProps } from "../../components/layout/header";
+import Layout from "../../components/layout/layout";
 
 /*
 const adverts = [
@@ -30,11 +32,8 @@ const adverts = [
   },
 ];*/
 
-interface Props {
-  onLogout: () => void;
-}
 
-function AdvertsPage({ onLogout }: Props) {
+function AdvertsPage(props: HeaderProps) {
   const [adverts, setAdverts] = useState<Advert[]>([]);
 
   useEffect(() => {
@@ -45,32 +44,28 @@ function AdvertsPage({ onLogout }: Props) {
     });
   }, []);
 
-  const handleLogoutClick = async () => {
-    await logout();
-    onLogout();
-  };
+
   return (
-    <div>
-      <h1 className="my-10 text-center text-blue-500">Adverts</h1>
-      <ul>
-        {adverts.map((advert) => (
-          <li key={advert.id} className={styles.advert}>
-            <img
-              src={advert.photo ? advert.photo : ""}
-              alt={advert.name}
-              width="50px"
-            />
-            <h3>{advert.name}</h3>
-            <p>Precio: {advert.price} €</p>
-            <p>Compra/Venta: {advert.sale ? "Sale" : "Purchase"}</p>
-            <p>Tags {advert.tags.join(", ")}</p>
-          </li>
-        ))}
-      </ul>
-      <Button $variant="primary" onClick={handleLogoutClick}>
-        Logout
-      </Button>
-    </div>
+    <Layout title="Compra lo que sea" {...props} >    
+      <div>
+        <h1 className="my-10 text-center text-blue-500">Adverts</h1>
+        <ul>
+          {adverts.map((advert) => (
+            <li key={advert.id} className={styles.advert}>
+              <img
+                src={advert.photo ? advert.photo : ""}
+                alt={advert.name}
+                width="50px"
+              />
+              <h3>{advert.name}</h3>
+              <p>Precio: {advert.price} €</p>
+              <p>Compra/Venta: {advert.sale ? "Sale" : "Purchase"}</p>
+              <p>Tags {advert.tags.join(", ")}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Layout>
   );
 }
 
