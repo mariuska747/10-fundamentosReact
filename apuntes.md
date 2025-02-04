@@ -27,18 +27,23 @@ Luego en el package.json para que nos vaya actualizando segun salvamos y formate
 > "format": "prettier --write .",
 
 Tailwind con vite:
+
 > npm install tailwindcss @tailwindcss/vite
 
 (seguir instrucciones de la web instalacion con vite)
 
 Tailwind y prettier
+
 > npm install prettier-plugin-tailwindcss
 
 Prettier configuration file:
+
 > "plugins": ["prettier-plugin-tailwindcss"]
 
 Styled components (para un boton por ejemplo)
+
 > npm install styled-components
 
 Libreria para hacer fetchs: Axios
+
 > npm install axios>

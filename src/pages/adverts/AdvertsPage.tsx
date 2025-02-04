@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Button from "../../components/Button";
-import styles from "./AdvertsPage.module.css"
+import styles from "./AdvertsPage.module.css";
 import { getLatestAdverts } from "./service";
 import { Advert } from "./types";
+import { logout } from "../auth/service";
 
 /*
 const adverts = [
@@ -29,36 +30,46 @@ const adverts = [
   },
 ];*/
 
+interface Props {
+  onLogout: () => void;
+}
 
+function AdvertsPage({ onLogout }: Props) {
+  const [adverts, setAdverts] = useState<Advert[]>([]);
 
+  useEffect(() => {
+    console.log("AdvertsPage useEffect");
+    getLatestAdverts().then((response) => {
+      console.log(response);
+      setAdverts(response);
+    });
+  }, []);
 
-function AdvertsPage() {
-
-    const [adverts, setAdverts] = useState<Advert[]>([]);
-
-    useEffect(() => {
-        console.log("AdvertsPage useEffect");
-        getLatestAdverts().then((response) => { 
-            console.log(response); 
-            setAdverts(response);    
-        });
-    },[]);
-
+  const handleLogoutClick = async () => {
+    await logout();
+    onLogout();
+  };
   return (
     <div>
-      <h1 className="text-blue-500 text-center my-10">Adverts</h1>
-        <ul>
-            {adverts.map((advert) => (
-            <li key={advert.id} className={styles.advert}>
-                <img src={advert.photo ? advert.photo : ""} alt={advert.name} width="50px"/>
-                <h3>{advert.name}</h3>
-                <p>Precio: {advert.price} €</p>
-                <p>Compra/Venta: {advert.sale ? "Sale" : "Purchase"}</p>
-                <p>Tags {advert.tags.join(", ")}</p>
-            </li>
-            ))}
-        </ul>
-        <Button $variant="primary">Login</Button>
+      <h1 className="my-10 text-center text-blue-500">Adverts</h1>
+      <ul>
+        {adverts.map((advert) => (
+          <li key={advert.id} className={styles.advert}>
+            <img
+              src={advert.photo ? advert.photo : ""}
+              alt={advert.name}
+              width="50px"
+            />
+            <h3>{advert.name}</h3>
+            <p>Precio: {advert.price} €</p>
+            <p>Compra/Venta: {advert.sale ? "Sale" : "Purchase"}</p>
+            <p>Tags {advert.tags.join(", ")}</p>
+          </li>
+        ))}
+      </ul>
+      <Button $variant="primary" onClick={handleLogoutClick}>
+        Logout
+      </Button>
     </div>
   );
 }
@@ -91,4 +102,3 @@ function AdvertsPage() {
 }
     */
 export default AdvertsPage;
-

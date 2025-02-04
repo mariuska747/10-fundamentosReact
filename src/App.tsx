@@ -3,17 +3,25 @@ import { useState } from "react";
 import AdvertsPage from "./pages/adverts/AdvertsPage";
 import LoginPage from "./pages/auth/LoginPage";
 
+interface Props {
+  defaultIsLogged: boolean;
+}
 
+function App({ defaultIsLogged }: Props) {
+  const [isLogged, setisLogged] = useState(defaultIsLogged);
 
-function App() {
-  const [isLogged, setisLogged] = useState(false);
-  
   const handleLogin = () => {
     setisLogged(true);
-  }
+  };
+  const handleLogout = () => {
+    setisLogged(false);
+  };
 
-  return isLogged ? <AdvertsPage /> : <LoginPage onLogin={handleLogin} />;
-
+  return isLogged ? (
+    <AdvertsPage onLogout={handleLogout} />
+  ) : (
+    <LoginPage onLogin={handleLogin} />
+  );
 }
 
 export default App;
