@@ -11,4 +11,3 @@ export interface Advert {
   tags: string[];
   photo: string | undefined; // URL
 }
-

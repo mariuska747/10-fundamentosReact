@@ -1,19 +1,28 @@
 import { useState } from "react";
-import { createAdvert } from "./serviceAdvert"
+import { createAdvert } from "./serviceAdvert";
+import styles from "./NewAdvert.module.css";
+import { useAuth } from "../auth/context";
+import storage from "../../utils/storage";
+import Layout from "../../components/layout/layout";
 
 const NewAdvert = () => {
   const [name, setName] = useState("");
   const [sale, setSale] = useState(false);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState<string | number>("");
   const [tags, setTags] = useState<string[]>([]);
   const [photo, setPhoto] = useState<File | undefined>(undefined);
+  const { isLogged } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
-      await createAdvert({ name, sale, price, tags, photo });
-      alert("Anuncio creado con éxito");
+      const accessToken = storage.get("auth");
+      if (isLogged && accessToken) {
+        await createAdvert({ name, sale, price, tags, photo });
+        alert("Anuncio creado con éxito");
+        console.log("Usuario logueado");
+      }
     } catch (error) {
       console.error("Error al crear el anuncio:", error);
       alert("Hubo un error");
@@ -21,31 +30,54 @@ const NewAdvert = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Nombre:</label>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+    <Layout title="Nuevo anuncio">
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label>Nombre:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-      <label>¿Es en venta?</label>
-      <input type="checkbox" checked={sale} onChange={(e) => setSale(e.target.checked)} />
+        <label className="checkbox-label">¿Es en venta?</label>
+        <input
+          type="checkbox"
+          checked={sale}
+          onChange={(e) => setSale(e.target.checked)}
+        />
 
-      <label>Precio:</label>
-      <input type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+        <label>Precio:</label>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) =>
+            setPrice(e.target.value === "" ? "" : Number(e.target.value))
+          }
+          required
+        />
 
-      <label>Tags:</label>
-      <select multiple onChange={(e) => setTags(Array.from(e.target.selectedOptions, (opt) => opt.value))}>
-        <option value="lifestyle">Lifestyle</option>
-        <option value="mobile">Mobile</option>
-        <option value="motor">Motor</option>
-        <option value="work">Work</option>
-      </select>
+        <label>Tags:</label>
+        <select
+          multiple
+          onChange={(e) =>
+            setTags(Array.from(e.target.selectedOptions, (opt) => opt.value))
+          }
+          required
+        >
+          <option value="lifestyle">Lifestyle</option>
+          <option value="mobile">Mobile</option>
+          <option value="motor">Motor</option>
+          <option value="work">Work</option>
+        </select>
 
-      <label>Foto:</label>
-      <input type="file" onChange={(e) => setPhoto(e.target.files?.[0])} />
+        <label>Foto:</label>
+        <input type="file" onChange={(e) => setPhoto(e.target.files?.[0])} />
 
-      <button type="submit">Crear Anuncio</button>
-    </form>
+        <button type="submit">Crear Anuncio</button>
+      </form>
+    </Layout>
   );
 };
 
 export default NewAdvert;
-

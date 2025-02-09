@@ -1,0 +1,15 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: white;
+}
+
+h1 {
+  font-size: 2rem;
+  color: rgb(250, 180, 31);
+}
+.active {
+  color: rgb(250, 180, 31);
+}

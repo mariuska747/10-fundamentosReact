@@ -10,13 +10,15 @@
   border-radius: 10px;
   width: 1000px;
 }
-.advert h3 {
-  font-size: 20px;
+.advert_li h3 {
+  font-size: large;
   font-weight: bold;
-} 
+  color: blue;
+}
 
-.advert_ul{
-  justify-content: center;
-  align-items: center;
+.advert_ul {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos estén en columna */
+  align-items: center; /* Centra los elementos horizontalmente */
   text-align: center;
 }

@@ -12,7 +12,9 @@ export default function Layout({ title, children }: Props) {
     <div>
       <Header />
       <main>
-        <h2>{title}</h2>
+        <h2 className="justify-center text-center text-4xl font-bold">
+          {title}
+        </h2>
         {children}
       </main>
       <Footer />
