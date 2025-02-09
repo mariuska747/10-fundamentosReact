@@ -47,3 +47,7 @@ Styled components (para un boton por ejemplo)
 Libreria para hacer fetchs: Axios
 
 > npm install axios>
+
+React router
+
+> npm install --save react-router-dom

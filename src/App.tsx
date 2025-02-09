@@ -1,20 +1,12 @@
 import AdvertsPage from "./pages/adverts/AdvertsPage";
+import NewAdvert from "./pages/adverts/NewAdvert";
 import LoginPage from "./pages/auth/LoginPage";
 import { useAuth } from "./pages/auth/context";
 
-
-
-
 function App() {
+  const { isLogged } = useAuth();
 
-  const {isLogged,onLogin,onLogout} = useAuth();
-
-
-  return authValue?.isLogged ? (
-    <AdvertsPage onLogout={onLogout} isLogged={isLogged} />
-  ) : (
-    <LoginPage onLogin={onLogin} />
-  );
+  return isLogged ? <AdvertsPage /> : <NewAdvert />;
 }
 
 export default App;

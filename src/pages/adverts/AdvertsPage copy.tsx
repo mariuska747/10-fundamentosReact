@@ -34,6 +34,11 @@ function AdvertsPage() {
   const [search, setSearch] = useState("");  // Para filtrar por nombre
   const [saleType, setSaleType] = useState("todos");  // Para venta/compra/todos
   
+  const filteredAdverts = adverts.filter(advert => 
+    advert.name.toLowerCase().includes(search.toLowerCase()) && 
+    (saleType === "todos" || advert.tags === saleType)
+  );
+
   useEffect(() => {
     console.log("AdvertsPage useEffect");
     getLatestAdverts().then((response) => {
@@ -42,60 +47,48 @@ function AdvertsPage() {
     });
   }, []);
 
-  // 🔹 Filtramos antes de renderizar
-  const filteredAdverts = adverts.filter(advert => 
-    advert.name.toLowerCase().includes(search.toLowerCase()) && 
-    (saleType === "todos" || (advert.sale ? "sale" : "purchase") === saleType)
-  );
-
   return (
     <Layout title="Compra lo que sea">
-      <div className="my-10 text-center">
+      <div>
+        <h1 className="my-10 text-center text-blue-500">Adverts</h1>
+        <ul>
+          {adverts.map((advert) => (
+            <li key={advert.id} className={styles.advert}>
+              <img
+                src={advert.photo ? advert.photo : ""}
+                alt={advert.name}
+                width="50px"
+              />
+              <h3>{advert.name}</h3>
+              <p>Precio: {advert.price} €</p>
+              <p>Compra/Venta: {advert.sale ? "Sale" : "Purchase"}</p>
+              <p>Tags {advert.tags.join(", ")}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder="Buscar por nombre"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-      {/* Inputs de búsqueda y filtrado por tipo de anuncio */}
+        <select value={saleType} onChange={(e) => setSaleType(e.target.value)}>
+          <option value="todos">Todos</option>
+          <option value="purchase">Purchase</option>
+          <option value="sale">Sale</option>
+        </select>
         <div>
-          <input
-            type="text"
-            placeholder="Buscar por nombre"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-
-          <select value={saleType} onChange={(e) => setSaleType(e.target.value)}>
-            <option value="todos">Todos</option>
-            <option value="purchase">Compra</option>
-            <option value="sale">Venta</option>
-          </select>
-        </div>
-
-        {/* Mostramos los anuncios filtrados o un mensaje de que no hay anuncios disponibles */} 
-
-        <div >
-          <ul className={styles.advert_ul}>
-            {filteredAdverts.length > 0 ? (
-              filteredAdverts.map(advert => (
-                <li key={advert.id} className={styles.advert_li}>
-                  <img
-                    src={advert.photo || ""}
-                    alt={advert.name}
-                    width="50px"
-                  />
-                  <h3>{advert.name}</h3>
-                  <p>Precio: {advert.price} €</p>
-                  <p>Compra/Venta: {advert.sale ? "Venta" : "Compra"}</p>
-                  <p>Tags: {advert.tags.join(", ")}</p>
-                </li>
-              ))
-            ) : (
-              <p>No hay anuncios disponibles</p>
-            )}
-          </ul>
+          {filteredAdverts.map(advert => (
+            <p key={advert.id}>{advert.name} - {advert.saleType}</p>
+          ))}
         </div>
       </div>
     </Layout>
   );
 }
-
 
 /*
 function AdvertsPage() {

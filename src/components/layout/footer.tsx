@@ -1,6 +1,7 @@
 export default function Footer() {
-    return  <footer className="bg-gray-800 text-white text-center p-4">
-                <p>© 2025 React Pop</p>
-            </footer>
-    
+  return (
+    <footer className="bg-gray-800 p-4 text-center text-white">
+      <p>© 2025 React Pop</p>
+    </footer>
+  );
 }

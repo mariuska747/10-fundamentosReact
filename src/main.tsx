@@ -11,11 +11,10 @@ if (accessToken) {
   setAuthorizationHeader(accessToken);
 }
 
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider defaultIsLogged={!!accessToken}>
-      <App/>
+      <App />
     </AuthProvider>
   </StrictMode>,
 );

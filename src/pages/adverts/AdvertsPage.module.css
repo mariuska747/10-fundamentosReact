@@ -1,12 +1,22 @@
-.advert {
+.advert_li {
   display: flex;
   flex-direction: row;
-  justify-content: start;
   align-items: center;
+  text-align: center;
   gap: 15px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #990a0a;
   border-radius: 10px;
-  width: 1400px;
+  width: 1000px;
+}
+.advert h3 {
+  font-size: 20px;
+  font-weight: bold;
+} 
+
+.advert_ul{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
