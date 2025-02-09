@@ -5,8 +5,11 @@ import { login } from "./service";
 import storage from "../../utils/storage";
 import { setAuthorizationHeader } from "../../api/client";
 import { useAuth } from "./context";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isChecked, setIsChecked] = useState(!!storage.get("auth")); // Recupera estado previo del localStorage
@@ -20,7 +23,7 @@ function LoginPage() {
         email,
         password,
       });
-      console.log(response);
+      // console.log(response);
       onLogin();
 
       const accessToken = storage.get("auth");
@@ -35,7 +38,8 @@ function LoginPage() {
       if (accessToken) {
         setAuthorizationHeader(accessToken);
       }
-      console.log("Token recibido:", accessToken);
+      // console.log("Token recibido:", accessToken);
+      navigate(location.state?.from ? location.state.from : "/", {replace: true} );
     } catch (error) {
       console.error("Error", error);
     }

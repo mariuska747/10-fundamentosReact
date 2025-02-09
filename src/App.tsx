@@ -3,6 +3,8 @@ import AdvertsPage from "./pages/adverts/AdvertsPage";
 import NewAdvert from "./pages/adverts/NewAdvert";
 import LoginPage from "./pages/auth/LoginPage";
 import DetailAdvertPage from "./pages/adverts/DetailAdvertPage";
+import RequireAuth from "./pages/auth/RequireAuth1";
+
 
 function App() {
   // const { isLogged } = useAuth();
@@ -15,12 +17,12 @@ function App() {
         element={
           <div>
             <h2>Parent route</h2>
-            <Outlet />
+              <Outlet />
           </div>
         }
       >
         <Route index element={<AdvertsPage />} />
-        <Route path="new" element={<NewAdvert />} />
+        <Route path="new" element={<RequireAuth><NewAdvert /></RequireAuth>} />
         <Route path=":id" element={<DetailAdvertPage />} />
       </Route>
 
