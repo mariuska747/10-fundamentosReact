@@ -22,7 +22,7 @@ form input {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px; /* Espacio entre el checkbox y el texto */
+  gap: 8px;
 }
 
 .checkbox-label input {

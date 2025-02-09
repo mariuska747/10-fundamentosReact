@@ -3,12 +3,12 @@ import { createAdvert } from "./serviceAdvert";
 import styles from "./NewAdvert.module.css";
 import { useAuth } from "../auth/context";
 import storage from "../../utils/storage";
-import Layout from "../../components/layout/layout";
+import Page from "../../components/layout/Page";
 
 const NewAdvert = () => {
   const [name, setName] = useState("");
   const [sale, setSale] = useState(false);
-  const [price, setPrice] = useState<string | number>("");
+  const [price, setPrice] = useState<string | number>(""); // Para evitar el warning de input number
   const [tags, setTags] = useState<string[]>([]);
   const [photo, setPhoto] = useState<File | undefined>(undefined);
   const { isLogged } = useAuth();
@@ -19,7 +19,13 @@ const NewAdvert = () => {
     try {
       const accessToken = storage.get("auth");
       if (isLogged && accessToken) {
-        await createAdvert({ name, sale, price, tags, photo });
+        await createAdvert({
+          name,
+          sale,
+          price: price === "" ? 0 : Number(price),
+          tags,
+          photo,
+        });
         alert("Anuncio creado con éxito");
         console.log("Usuario logueado");
       }
@@ -30,7 +36,7 @@ const NewAdvert = () => {
   };
 
   return (
-    <Layout title="Nuevo anuncio">
+    <Page title="Nuevo anuncio">
       <form onSubmit={handleSubmit} className={styles.form}>
         <label>Nombre:</label>
         <input
@@ -40,7 +46,7 @@ const NewAdvert = () => {
           required
         />
 
-        <label className="checkbox-label">¿Es en venta?</label>
+        <label className="checkbox-label">¿Es en venta? Marca la casilla</label>
         <input
           type="checkbox"
           checked={sale}
@@ -76,7 +82,7 @@ const NewAdvert = () => {
 
         <button type="submit">Crear Anuncio</button>
       </form>
-    </Layout>
+    </Page>
   );
 };
 

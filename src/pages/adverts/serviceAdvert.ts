@@ -33,3 +33,8 @@ export const createAdvert = async (advertData: {
 
   return response.data;
 };
+
+export const getAdvertDetail = async (id: string) => {
+  const response = await client.get<Advert>(`/api/v1/adverts/${id}`);
+  return response.data;
+};

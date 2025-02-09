@@ -3,10 +3,9 @@ import { useState } from "react";
 import Button from "../../components/Button";
 import { login } from "./service";
 import storage from "../../utils/storage";
+import { setAuthorizationHeader } from "../../api/client";
 import { useAuth } from "./context";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./LoginPage.css";
-
 
 function LoginPage() {
   const location = useLocation();
@@ -56,7 +55,7 @@ function LoginPage() {
   return (
     <div>
       <h1 className="m-3">Log in to React Pop</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="ml-2 space-y-4">
         <label>
           Email:
           <input

@@ -1,10 +1,10 @@
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, replace, Route, Routes } from "react-router-dom";
 import AdvertsPage from "./pages/adverts/AdvertsPage";
 import NewAdvert from "./pages/adverts/NewAdvert";
 import LoginPage from "./pages/auth/LoginPage";
 import DetailAdvertPage from "./pages/adverts/DetailAdvertPage";
-import RequireAuth from "./pages/auth/RequireAuth1";
-
+import RequireAuth from "./pages/auth/RequireAuth";
+import Layout from "./components/layout/Layout";
 
 function App() {
   // const { isLogged } = useAuth();
@@ -16,17 +16,32 @@ function App() {
         path="adverts"
         element={
           <div>
-            <h2>Parent route</h2>
+            <Layout>
               <Outlet />
+            </Layout>
           </div>
         }
       >
-        <Route index element={<AdvertsPage />} />
-        <Route path="new" element={<RequireAuth><NewAdvert /></RequireAuth>} />
+        <Route
+          index
+          element={
+            <RequireAuth>
+              <AdvertsPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="new"
+          element={
+            <RequireAuth>
+              <NewAdvert />
+            </RequireAuth>
+          }
+        />
         <Route path=":id" element={<DetailAdvertPage />} />
       </Route>
 
-      <Route path="/" element={<Navigate to="/adverts" />} />
+      <Route path="/" element={<Navigate to="/adverts" replace/>} />
       <Route path="/login" element={<LoginPage />} />
       <Route
         path="/404"

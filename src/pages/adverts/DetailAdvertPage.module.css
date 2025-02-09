@@ -1,0 +1,14 @@
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.advertImage {
+  width: 400px;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 20px;
+}

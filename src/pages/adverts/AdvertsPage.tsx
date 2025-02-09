@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import styles from "./AdvertsPage.module.css";
 import { getLatestAdverts } from "./serviceAdvert";
 import { Advert } from "./types";
-import Layout from "../../components/layout/layout";
+import Layout from "../../components/layout/Layout";
 import { Link } from "react-router-dom";
+import Page from "../../components/layout/Page";
 
 /*
 const adverts = [
@@ -42,7 +43,7 @@ function AdvertsPage() {
     });
   }, []);
 
-  // 🔹 Filtramos antes de renderizar
+  // Filtramos antes de renderizar
   const filteredAdverts = adverts.filter(
     (advert) =>
       advert.name.toLowerCase().includes(search.toLowerCase()) &&
@@ -51,7 +52,7 @@ function AdvertsPage() {
   );
 
   return (
-    <Layout title="Compra lo que sea">
+    <Page title="Compra lo que sea">
       <div className="my-10 text-center">
         {/* Inputs de búsqueda y filtrado por tipo de anuncio */}
         <div>
@@ -89,12 +90,15 @@ function AdvertsPage() {
                 </li>
               ))
             ) : (
-              <p>No hay anuncios disponibles</p>
+              <p>
+                No hay anuncios disponibles; o tienes que hacer LOGIN para
+                visualizarlos
+              </p>
             )}
           </ul>
         </div>
       </div>
-    </Layout>
+    </Page>
   );
 }
 
