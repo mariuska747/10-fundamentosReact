@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styles from "./AdvertsPage.module.css";
 import { getLatestAdverts } from "./serviceAdvert";
 import { Advert } from "./types";
-import Layout from "../../components/layout/Layout";
 import { Link } from "react-router-dom";
 import Page from "../../components/layout/Page";
 
@@ -82,7 +81,7 @@ function AdvertsPage() {
                 <li key={advert.id} className={styles.advert_li}>
                   <img src={advert.photo || ""} alt="Foto" width="50px" />
                   <Link to={`/adverts/${advert.id}`}>
-                    <h3 className="to-cyan-700">{advert.name}</h3>
+                    <h3 className="to-cyan-700 underline">{advert.name}</h3>
                   </Link>
                   <p>Precio: {advert.price} €</p>
                   <p>C/V: {advert.sale ? "Venta" : "Compra"}</p>
@@ -102,31 +101,4 @@ function AdvertsPage() {
   );
 }
 
-/*
-function AdvertsPage() {
-    const [adverts, setAdverts] = useState<string[]>([]);
-
-    useEffect(() => {
-        console.log("AdvertsPage useEffect");
-        getLatestAdverts().then((response) => { 
-            console.log(response); 
-            setAdverts(response);    
-        });
-    },[]);
-
-    
-    return (
-        <div>
-            <h1>Listado de tags</h1>
-            {adverts.length > 0 ? (
-                adverts.map((tag, index) => (
-                    <p key={index}>Tag: {tag}</p>
-                ))
-            ) : (
-                <p>⚠ No hay datos disponibles ⚠</p>
-            )}
-        </div>
-    )
-}
-    */
 export default AdvertsPage;

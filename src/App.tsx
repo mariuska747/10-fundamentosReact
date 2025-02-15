@@ -41,7 +41,7 @@ function App() {
         <Route path=":id" element={<DetailAdvertPage />} />
       </Route>
 
-      <Route path="/" element={<Navigate to="/adverts" replace/>} />
+      <Route path="/" element={<Navigate to="/adverts" replace />} />
       <Route path="/login" element={<LoginPage />} />
       <Route
         path="/404"

@@ -38,3 +38,11 @@ export const getAdvertDetail = async (id: string) => {
   const response = await client.get<Advert>(`/api/v1/adverts/${id}`);
   return response.data;
 };
+
+export const deleteAdvert = async (id: string) => {
+  try {
+    await client.delete(`/api/v1/adverts/${id}`);
+  } catch (error) {
+    throw new Error("Error al eliminar el anuncio");
+  }
+};

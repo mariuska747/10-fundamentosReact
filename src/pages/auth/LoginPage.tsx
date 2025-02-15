@@ -6,7 +6,7 @@ import storage from "../../utils/storage";
 import { useAuth } from "./context";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
-
+import Page from "../../components/layout/Page";
 
 function LoginPage() {
   const location = useLocation();
@@ -54,8 +54,7 @@ function LoginPage() {
   const isDisabled = !email || !password;
 
   return (
-    <div>
-      <h1 className="m-3">Log in to React Pop</h1>
+    <Page title="Iniciar sesión">
       <form onSubmit={handleSubmit}>
         <label>
           Email:
@@ -76,18 +75,18 @@ function LoginPage() {
           />
         </label>
         <label>
+          Pulsa la casilla para guardar la sesión:
           <input
             type="checkbox"
             checked={isChecked}
             onChange={(e) => setIsChecked(e.target.checked)}
           />
-          Recuérdame
         </label>
         <Button type="submit" $variant="primary" disabled={isDisabled}>
           Log in
         </Button>
       </form>
-    </div>
+    </Page>
   );
 }
 
